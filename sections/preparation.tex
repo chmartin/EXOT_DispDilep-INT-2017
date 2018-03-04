@@ -1,0 +1,132 @@
+\subsection{Event preselection}
+\label{sec:preselection}
+In the first step of data reprocessing, events are selected by \texttt{DRAW\_RPVLL} filters as described in Section~\ref{sec:data_MC}. The filters are designed to select events of interest while maintaining reasonably low filter rates. Single photon ($\gamma$), single electron ($e$), di-photon ($\gamma\gamma$), di-electron ($ee$), and the combination of photon and electron ($e\gamma$) filters are used to select events with $ee$ or $e\mu$ candidates of interest. Single $\mu$ filter is used to select events with $\mu\mu$ or $e\mu$ candidates of interest.
+
+Events are required to pass one of the HLTs listed in Table~\ref{table:triggers}. In order to increase the sensitivity to electrons and muons with large transverse and longitudinal impact parameters, $d_{0}$ and $z_{0}$, the triggers with no requirement on ID tracks are used. Consequently, muon trigger with Muon Spectrometer (MS) information only and photon triggers are used.
+
+\begin{table}[!htb]
+  \centering
+  \begin{tabular}{l l}
+    \hline
+    \hline
+    Description     			& Trigger	        	                \\
+    \hline
+	Single photon 	            & \texttt{HLT\_g140\_loose}             \\
+	Di-photon	                & \texttt{HLT\_2g50\_loose}             \\
+	Single muon                 & \texttt{HLT\_mu60\_0eta105\_msonly}   \\
+    \hline
+    \hline
+  \end{tabular}
+  \caption{HLTs used to select events in \texttt{DRAW\_RPVLL} filter. Single photon trigger requires one photon with $p_{T} > 140$ GeV. Di-photon trigger requires two photons with $p_{T} > 50$ GeV. Single muon trigger requires one muon with $p_{T} > 60$ within $0 < |\eta| < 1.05$ using MS information only.}
+  \label{table:triggers}
+\end{table}
+
+In addition to the HLT requirements, each filter requires offline selection on particles such as $p_{T}$, $\eta$, and $d_{0}$. Single photon ($\gamma$) or electron ($e$) filter requires a leading photon or electron, respectively, with $p_{T} > 150$ GeV, $\eta < 2.5$, and $d_{0} > 2.0$ mm. These filters also require a second photon or lepton with $p_{T} > 10$ GeV and $\eta < 2.5$ to keep the filter rate reasonably low. Single muon $\mu$ filter requires a muon with $p_{T} > 60$ GeV, $\eta < 2.5$, and $d_{0} > 1.5$ mm. Di-photon ($\gamma\gamma$), di-electron ($ee$), and the combination of photon and electron ($e\gamma$) filters require two photons/leptons with $p_{T} > 50$ GeV, $\eta < 2.5$, and $d_{0} > 2.0$ mm. The offline selection is summarized in Table~\ref{table:rpvll_filter_selection}.
+
+\begin{table}[!htb]
+  \centering
+  \begin{tabular}{l c c c | c c c}
+    \hline
+    \hline
+    Filter          & \multicolumn{3}{c|}{Leading}  &  \multicolumn{3}{c}{Second} \\
+                    & $p_{T}$ (GeV) & $|\eta|$    & $d_{0}$ (mm) & $p_{T}$ (GeV) & $|\eta|$    & $d_{0}$ (mm)  \\
+    \hline
+    $\gamma$, $e$                   & $>$ 150   & $<$2.5  & $>$2.0  & $>$ 10 & $<$2.5 & -       \\
+    $\mu$                           & $>$ 60    & $<$2.5  & $>$1.5  & -      & -      & -       \\
+    $\gamma\gamma$, $ee$, $e\gamma$ & $>$ 50    & $<$2.5  & $>$2.0  & $>$ 50 & $<$2.5 & $>$ 2.0 \\
+    \hline
+    \hline
+  \end{tabular}
+  \caption{\texttt{RPVLL} filter offline selection on photon and leptons. Single photon ($\gamma$) or electron ($e$) filter requires a leading photon or electron, respectively, with $p_{T} > 150$ GeV, $\eta < 2.5$, and $d_{0} > 2.0$ mm and a second photon or lepton with $p_{T} > 10$ GeV, $\eta < 2.5$. Single muon $\mu$ filter requires a muon with $p_{T} > 60$ GeV, $\eta < 2.5$, and $d_{0} > 1.5$ mm. Di-photon ($\gamma\gamma$), di-electron ($ee$), and the combination of photon and electron ($e\gamma$) filters require a photon or lepton with $p_{T} > 50$ GeV, $\eta < 2.5$, and $d_{0} > 2.0$ mm.}
+  \label{table:rpvll_filter_selection}
+\end{table}
+
+The event selected by the \texttt{RPVLL} filters are passed downstream as \texttt{DRAW\_RPVLL} for the special track and vertex reconstruction.
+
+
+\subsection{Reconstruction}
+\label{sec:track_vertex_reconstruction}
+
+\subsubsection{Large radius tracking}
+\label{sec:large_radius_tracking}
+
+The standard track reconstruction in ATLAS is optimized\footnote{There are dedicated algorithms for reconstructing displaced decays such as photon conversion and $b$-hadron decays, but their usage is limited to the particular topologies.} for the reconstruction of particles that are originating from the primary $pp$ interaction point (IP). The requirements on $d_{0}$ and $z_{0}$ limit the tracking efficiency at large impact parameters ($d_{0}$ > 2 mm). To improve the tracking efficiency at large impact parameter, the large radius tracking algorithm is used for track reconstruction.
+
+The large radius tracking is performed as the third tracking sequence following the standard \textit{inside-out} and \textit{outside-in} track reconstruction~\cite{Cornelissen:1020106}. It follows the similar track reconstruction strategy as the standard \textit{inside-out} track reconstruction, but there are a few important differences between the two tracking algorithms.
+
+\begin{itemize}
+	\item The large radius tracking only uses un-used hits from the standard \textit{inside-out} and \textit{outside-in} track reconstruction for track seed creation.
+	\item The requirements on tracks such as $d_{0}$, $z_{0}$, and number of hits are relaxed.
+\end{itemize}
+
+The track requirements in the standard track reconstruction and the large radius tracking are compared in Table~\ref{table:lrt_comparison}. More details on the large radius tracking can be found in Ref.~\cite{Che:2255680}.
+
+\begin{table}[!htb]
+  \centering
+  \begin{tabular}{ l  c  c } 
+    \hline
+    \hline
+    & Standard & Large radius \\ [0.5ex] 
+    \hline
+    Maximum $d_{0}$ (mm) & 10 & 300 \\ 
+    Maximum $z_{0}$ (mm) & 250 & 1500 \\
+    % $\sigma_{d0}$ & - & - \\
+    %$\sigma_{z0}$ & - & - \\
+    Maximum $|\eta|$ & 2.7 & 5 \\
+    Maximum shared silicon modules & 1 & 2 \\
+    Minimum unshared silicon hits& 6 & 5 \\
+    Minimum silicon hits & 7 & 7\\
+    Seed extension & Combinatorial & Sequential \\
+    \hline
+    \hline
+  \end{tabular}
+  \caption{Comparison of track requirements between the standard and large radius trackings.}
+  \label{table:lrt_comparison}
+\end{table}
+
+The collection of tracks reconstructed by the large radius tracking, referred as \textit{large radius tracks}, is merged with the track collection from the standard track reconstruction. The combined track collection is used as an input for the lepton reconstruction and identification and secondary vertex reconstruction.
+
+\subsubsection{Lepton reconstruction and identification}
+\label{sec:lepton_reconstruction}
+
+In this search, the standard ATLAS electron and muon reconstruction and identification algorithms are used. The combined track collection, including both standard and large radius tracks, is used as an input. Therefore, standard muon or electron working points such as \texttt{Tight}, \texttt{Medium}, or \texttt{Loose} are available after the lepton identification. A few changes are implemented in the muon reconstruction algorithm to improve the muon reconstruction efficiency at large impact parameters;
+
+\begin{itemize}
+	\item requirements on $d_{0}$ and Pixel hits of muon tracks are removed.
+	\item minimum SCT hits on muon tracks are lowered to 2.
+\end{itemize}
+
+Details of these algorithms are discussed in Refs.~\cite{ATLAS-CONF-2010-005} and~\cite{Aad:2016jkr}.
+
+\subsubsection{Secondary vertex reconstruction}
+\label{sec:secondary_vertex_reconstruction}
+
+Secondary vertices are reconstructed by \texttt{VrtSecInclusive} algorithm. The algorithm was originally developed for the material mapping of the ID in Run I, but updated for several long-lived particle searches in Run 2.
+
+The secondary vertex reconstruction starts by selecting tracks that satisfy the requirements on track parameters and hit patterns as shown in Table~\ref{table:vertex_track_selection_simple}. Both large radius tracks and standard tracks are used as input, and tracks passing the requirements are stored for the next step of the vertex reconstruction.
+
+\begin{table}[!htb]
+  \centering
+  \begin{tabular}{ l c }
+    \hline
+    \hline
+	Variable      		& Cut                                         	\\
+    \hline
+	$p_{T}$ (GeV)		& $>$ 1.0										\\
+	$\chi^{2} / DOF$	& $<$ 50.0										\\
+	$d_{0}$	(mm)		& 2.0 - 300.0									\\
+	$z_{0}$ (mm)		& $<$ 1500.0									\\
+	SCT hits			& $\geq$ 2										\\
+	Si shared hits	    & $\leq$ 2										\\
+	Pixel and TRT hits  & TRT hits > 0 or Pixel hits $\geq$ 2			\\
+    \hline
+    \hline
+  \end{tabular}
+  \caption{Track requirements for secondary vertex reconstruction.}
+  \label{table:vertex_track_selection_simple}
+\end{table}
+
+The selected tracks are used for the creation of two-track \textit{seed} vertices. From the \textit{seed} vertices, fake vertices are rejected by considering the location of a vertex and hit patterns of the tracks from the vertex. Tracks are not allowed to have any hits at radius smaller than the vertex position. \textit{seed} vertices passing the location and hit patterns requirement are used to create N-track vertices. Ambiguity solving is applied to N-track vertices to improve the purity of the reconstructed vertices. More details of the algorithm can be found in Ref.~\cite{ATLAS-CONF-2010-058}.
+
+The two-track secondary vertices reconstructed by \texttt{VrtSecInclusive} is the primary analysis object, and Section~\ref{sec:vertex_selection} discuss the vertex selection applied to these two-track vertices to select displaced vertices. Lepton identification requirements are applied to the tracks from secondary vertices after applying analysis level vertex selection, so secondary vertices reconstructed can have any combination of muon, electron, or non-leptonic tracks.
+

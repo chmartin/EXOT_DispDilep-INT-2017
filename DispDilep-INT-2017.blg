@@ -1,0 +1,24 @@
+[0] Config.pm:354> INFO - This is Biber 2.7
+[0] Config.pm:357> INFO - Logfile is 'DispDilep-INT-2017.blg'
+[46] biber-darwin:303> INFO - === Sun Mar  4, 2018, 00:53:44
+[72] Biber.pm:359> INFO - Reading 'DispDilep-INT-2017.bcf'
+[169] Biber.pm:835> INFO - Found 22 citekeys in bib section 0
+[184] Biber.pm:3670> INFO - Processing section 0
+[201] Biber.pm:3840> INFO - Looking for bibtex format file 'DispDilep-INT-2017.bib' for section 0
+[204] bibtex.pm:1435> INFO - Decoding LaTeX character macros into UTF-8
+[214] bibtex.pm:1292> INFO - Found BibTeX data source 'DispDilep-INT-2017.bib'
+[231] Utils.pm:164> WARN - month field 'May' in entry 'Blackburn:1550730' is not an integer - this will probably not sort properly.
+[239] Utils.pm:164> WARN - month field 'Feb' in entry 'Harris:1512932' is not an integer - this will probably not sort properly.
+[246] Utils.pm:164> WARN - month field 'May' in entry 'Duarte-Campderros:2152010' is not an integer - this will probably not sort properly.
+[248] Utils.pm:164> WARN - month field 'Apr' in entry 'Catmore:1543445' is not an integer - this will probably not sort properly.
+[253] Utils.pm:164> WARN - month field 'Mar' in entry 'Cornelissen:1020106' is not an integer - this will probably not sort properly.
+[256] Utils.pm:164> WARN - month field 'Mar' in entry 'Che:2255680' is not an integer - this will probably not sort properly.
+[260] Utils.pm:164> WARN - month field 'Jul' in entry 'ATLAS-CONF-2010-058' is not an integer - this will probably not sort properly.
+[262] Utils.pm:164> WARN - month field 'Dec' in entry 'Backhaus:2110260' is not an integer - this will probably not sort properly.
+[289] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[289] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[289] Biber.pm:3499> INFO - Sorting list 'none/global/' of type 'entry' with scheme 'none' and locale 'en-US'
+[289] Biber.pm:3505> INFO - No sort tailoring available for locale 'en-US'
+[307] bbl.pm:608> INFO - Writing 'DispDilep-INT-2017.bbl' with encoding 'UTF-8'
+[312] bbl.pm:712> INFO - Output to DispDilep-INT-2017.bbl
+[312] Biber.pm:109> INFO - WARNINGS: 8

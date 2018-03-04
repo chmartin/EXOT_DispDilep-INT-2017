@@ -1,0 +1,208 @@
+%-------------------------------------------------------------------------------
+% This file provides a skeleton ATLAS note.
+%-------------------------------------------------------------------------------
+% Specify where ATLAS LaTeX style files can be found.
+\newcommand*{\ATLASLATEXPATH}{latex/}
+% Use this variant if the files are in a central location, e.g. $HOME/texmf.
+% \newcommand*{\ATLASLATEXPATH}{}
+%-------------------------------------------------------------------------------
+%\documentclass[NOTE, USenglish, texlive=2017]{\ATLASLATEXPATH atlasdoc}
+\documentclass[NOTE, english, texlive=2017]{\ATLASLATEXPATH atlasdoc}
+%\documentclass[NOTE, USenglish, texlive=2017]{\ATLASLATEXPATH atlasdoc}
+% The language of the document must be set: usually UKenglish or USenglish.
+% british and american also work!
+% Commonly used options:
+%  texlive=YYYY          Specify TeX Live version (2016 is default).
+%  coverpage             Create ATLAS draft cover page for collaboration circulation.
+%                        See atlas-draft-cover.tex for a list of variables that should be defined.
+%  cernpreprint          Create front page for a CERN preprint.
+%                        See atlas-preprint-cover.tex for a list of variables that should be defined.
+%  NOTE                  The document is an ATLAS note (draft).
+%  PAPER                 The document is an ATLAS paper (draft).
+%  CONF                  The document is a CONF note (draft).
+%  PUB                   The document is a PUB note (draft).
+%  BOOK                  The document is of book form, like an LOI or TDR (draft)
+%  txfonts=true|false    Use txfonts rather than the default newtx
+%  paper=a4|letter       Set paper size to A4 (default) or letter.
+
+%-------------------------------------------------------------------------------
+% Extra packages:
+\usepackage{\ATLASLATEXPATH atlaspackage}
+% Commonly used options:
+%  biblatex=true|false   Use biblatex (default) or bibtex for the bibliography.
+%  backend=bibtex        Use the bibtex backend rather than biber.
+%  subfigure|subfig|subcaption  to use one of these packages for figures in figures.
+%  minimal               Minimal set of packages.
+%  default               Standard set of packages.
+%  full                  Full set of packages.
+%-------------------------------------------------------------------------------
+% Style file with biblatex options for ATLAS documents.
+\usepackage{\ATLASLATEXPATH atlasbiblatex}
+
+% Package for creating list of authors and contributors to the analysis.
+\usepackage{\ATLASLATEXPATH atlascontribute}
+
+% Useful macros
+\usepackage{\ATLASLATEXPATH atlasphysics}
+% See doc/atlas_physics.pdf for a list of the defined symbols.
+% Default options are:
+%   true:  journal, misc, particle, unit, xref
+%   false: BSM, heppparticle, hepprocess, hion, jetetmiss, math, process, other, texmf
+% See the package for details on the options.
+
+% Files with references for use with biblatex.
+% Note that biber gives an error if it finds empty bib files.
+\addbibresource{DispDilep-INT-2017.bib}
+\addbibresource{bib/ATLAS.bib}
+\addbibresource{bib/CMS.bib}
+\addbibresource{bib/ConfNotes.bib}
+\addbibresource{bib/PubNotes.bib}
+
+% Paths for figures - do not forget the / at the end of the directory name.
+\graphicspath{{logos/}{figures/}}
+
+% Add you own definitions here (file DispDilep-INT-2017-defs.sty).
+\usepackage{DispDilep-INT-2017-defs}
+\usepackage{multirow}
+%\usepackage{floatrow}
+\usepackage[utf8]{inputenc}
+\captionsetup[subfloat]{captionskip=1pt}
+%\setlength\abovecaptionskip{-5pt}
+%-------------------------------------------------------------------------------
+% Generic document information
+%-------------------------------------------------------------------------------
+
+% Title, abstract and document 
+\input{DispDilep-INT-2017-metadata}
+% Author and title for the PDF file
+\hypersetup{pdftitle={ATLAS document},pdfauthor={The ATLAS Collaboration}}
+
+
+%-------------------------------------------------------------------------------
+% Content
+%-------------------------------------------------------------------------------
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+% List of contributors - print here or after the Bibliography.
+%\PrintAtlasContribute{0.30}
+%\clearpage
+
+%-------------------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
+\input{sections/introduction.tex}
+
+%-------------------------------------------------------------------------------
+\section{Data and MC samples}
+\label{sec:data_MC}
+\input{sections/data_MC_samples.tex}
+
+%-------------------------------------------------------------------------------
+\section{Data reprocessing}
+\label{sec:data_preparation}
+\input{sections/preparation.tex}
+
+%-------------------------------------------------------------------------------
+\section{Signal selection}
+\label{sec:signal_selection}
+\input{sections/signal_selection.tex}
+
+%-------------------------------------------------------------------------------
+\section{Signal efficiency}
+\label{sec:signal_efficiency}
+\input{sections/signal_efficiency.tex}
+
+%-------------------------------------------------------------------------------
+\section{Background estimation}
+\label{sec:background_estimation}
+\input{sections/background_estimation.tex}
+
+%-------------------------------------------------------------------------------
+\section{Systematic uncertainties}
+\label{sec:syst}
+\input{sections/systematic_uncertainties.tex}
+
+%-------------------------------------------------------------------------------
+\section{Results}
+\label{sec:result}
+%-------------------------------------------------------------------------------
+
+
+
+% All figures and tables should appear before the summary and conclusion.
+% The package placeins provides the macro \FloatBarrier to achieve this.
+\FloatBarrier
+%-------------------------------------------------------------------------------
+\section{Conclusion}
+\label{sec:conclusion}
+%-------------------------------------------------------------------------------
+
+
+%-------------------------------------------------------------------------------
+% If you use biblatex and either biber or bibtex to process the bibliography
+% just say \printbibliography here
+\newpage
+\printbibliography
+% If you want to use the traditional BibTeX you need to use the syntax below.
+%\bibliographystyle{bib/bst/atlasBibStyleWithTitle}
+%\bibliography{DispDilep-INT-2017,bib/ATLAS,bib/CMS,bib/ConfNotes,bib/PubNotes}
+%-------------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------------
+% Print the list of contributors to the analysis
+% The argument gives the fraction of the text width used for the names
+%-------------------------------------------------------------------------------
+\clearpage
+%The supporting notes for the analysis should also contain a list of contributors.
+%This information should usually be included in \texttt{mydocument-metadata.tex}.
+%The list should be printed either here or before the Table of Contents.
+\PrintAtlasContribute{0.30}
+
+
+%-------------------------------------------------------------------------------
+\clearpage
+\appendix
+\part*{Appendices}
+\addcontentsline{toc}{part}{Appendices}
+%-------------------------------------------------------------------------------
+
+\appendix
+\section{Truth-level $p_{T}$ and $\eta$ distributions of Signal MC samples}
+\label{app:signal_truth}
+\input{sections/app_signal_truth.tex}
+
+\newpage
+
+\section{$K_{S}$ yields in data and MC samples used for tracking and vertexing systematic uncertainties}
+\label{app:syst_Ks_fit}
+\input{sections/app_syst_Ks.tex}
+
+\newpage
+
+\section{$K_{S}$ and $Z'$ comparison}
+\label{app:syst_Ks_Zp}
+\input{sections/app_Ks_Zp.tex}
+
+\newpage
+
+\section{Track flipping extrapolation method}
+\label{app:TF_extrapolation}
+\input{sections/app_TF_extrapolation.tex}
+
+
+
+
+
+
+
+%-------------------------------------------------------------------------------
+
+%In an ATLAS note, use the appendices to include all the technical details of your work
+%that are relevant for the ATLAS Collaboration only (e.g.\ dataset details, software release used).
+%This information should be printed after the Bibliography.
+
+\end{document}
